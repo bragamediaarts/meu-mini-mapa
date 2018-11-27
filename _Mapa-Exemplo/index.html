@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title></title>
+
+    <script src="config.js"></script>
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        iframe {
+            position: absolute;
+            height: 100%; width: 100%;
+            top: 0; left: 0; right: 0; bottom: 0;
+            overflow: hidden; overflow-x: hidden; overflow-y: hidden;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <iframe name="meu-mini-mapa" frameborder="0" height="100%" width="100%"></iframe>
+
+    <script type="text/javascript">
+
+        // Get slug from last part of url
+        url = window.location.pathname
+        if (url[url.length - 1] == "/") url = url.substr(0, url.lastIndexOf("/"))
+        slug = url.substring(url.lastIndexOf("/") + 1)
+        // console.log(`Carregando mapa ${slug}...`)
+        MeuMiniMapaConfig.slug = slug
+
+        // Set title from the globally available configuration object
+        document.title = `Meu Mini Mapa - ${MeuMiniMapaConfig.titulo}`
+
+        // Encode the configuration as a JSON string
+        const encoded = encodeURIComponent(JSON.stringify(MeuMiniMapaConfig))
+
+        // And send if over the inner iframe as an hashtag part of the url
+        document.getElementsByTagName("iframe")[0].src = "../_src/meu-mini-mapa.html#" + encoded
+
+    </script>
+
+</body>
+
+</html>
