@@ -14,7 +14,7 @@ class Utils {
 
 class App {
 
-    constructor(params={}) {
+    constructor(params = {}) {
 
         this.nome = params.nome
         this.ano = params.ano
@@ -59,6 +59,8 @@ class App {
          */
         this.preloadAudio = params.preloadAudio || App.defaults.preloadAudio
 
+        this.useFilters = params.useFilters
+
         // ---------------------------------------------------------------------------
         // --- member variables not allowed for customization through params below ---
         // ---------------------------------------------------------------------------
@@ -88,12 +90,13 @@ class App {
          * @type {Array.<Paper.circle>}
          */
         this.circles = []
+        this.circlesMask = []
 
         /**
          * Node where all tracks connect, so that can control volume.
          * @type {Tone.Volume}
          */
-        this.volume = new Tone.Volume(20*Math.log10(0.8)) // -1.938 dB
+        this.volume = new Tone.Volume(20 * Math.log10(0.8)) // -1.938 dB
 
         this.isMobile = (/Mobi|Android/i.test(navigator.userAgent))
         this.isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -136,6 +139,22 @@ class App {
             this.loader.style.visibility = "visible"
         }
 
+        if (this.useFilters) {
+
+            // filters
+            // const f = this.snap.filter(Snap.filter.saturate(5))
+            // const f = this.snap.filter(Snap.filter.sepia(2.5))
+            const f = this.snap.filter(Snap.filter.contrast(5))
+            // const f = this.snap.filter(Snap.filter.invert(10))
+            // const f = this.snap.filter(Snap.filter.saturate(30))
+            // const f = this.snap.filter(Snap.filter.saturate(50))
+
+            this.maskGroup = this.snap.group(this.snap.selectAll('circle.mask'))
+
+            this.bgMask.attr({ mask: this.maskGroup, filter: f })
+            this.mask = this.snap.select('mask')
+        }
+
     }
 
     initShake() {
@@ -172,8 +191,8 @@ class App {
 
         this.snap.attr({ filter: "url(#f1)" })
 
-        const url = `url("../${this.slug}/${this.background}")`
-        this.svg.style.background = url
+        const src = `../${this.slug}/${this.background}`
+        // this.svg.style.background = url
 
         this.ratio = 1.426
 
@@ -184,9 +203,9 @@ class App {
         const minHeight = Number.parseInt(minWidth / this.ratio)
 
         // css props
-        this.svg.style.maxWidth  = `${this.width}px`
+        this.svg.style.maxWidth = `${this.width}px`
         this.svg.style.maxHeight = `${this.height}px`
-        this.svg.style.minWidth  = `${minWidth}px`
+        this.svg.style.minWidth = `${minWidth}px`
         this.svg.style.minHeight = `${minHeight}px`
 
         // html attribute
@@ -196,6 +215,9 @@ class App {
         this.svg.style.width = "100vw"
         const heightVw = Number(1 / this.ratio).toFixed(2) * 100
         this.svg.style.height = `${heightVw}vw`
+
+        this.bg = this.snap.image(src).attr({ id: 'bg' })
+        if (this.useFilters) this.bgMask = this.snap.image(src).attr({ id: 'mask' })
 
     }
 
@@ -211,18 +233,30 @@ class App {
             const r = w / 2
 
             let circle = this.snap.circle(x, y, r).attr({
-                "data-sound": idx,
-                "z-index": 10
+                'data-sound': idx,
+                'z-index': 10
             })
-            circle.addClass("area")
-            circle.addClass("hidden")
+
+            circle.attr({ fill: 'black' })
+            circle.addClass('area')
+            circle.addClass('hidden')
+            // circle.attr('visibility', 'hidden')
+            if (this.useFilters) circle.addClass('filters')
+
             this.circles.push(circle)
+
+            if (this.useFilters) {
+                const cMask = circle.clone()
+                cMask.addClass('mask')
+                this.circlesMask.push(circle)
+            }
 
         })
 
         // Set click events
         this.circles.forEach(circle => {
             circle.click(() => {
+                // circle.attr('visibility', 'visible')
                 if (!this.isCirclePlaying(circle)) this.playCircle(circle)
                 else this.stopCircle(circle)
             })
@@ -238,8 +272,12 @@ class App {
         const idx = this.getCircleIdx(circle)
         if (this.preloadAudio) this.players[idx].start()
         else this.audios[idx].play()
-        this.circles[idx].addClass("active")
-        this.circles[idx].attr({ filter: "url('#f1')" })
+        if (this.useFilters) {
+            this.maskGroup[idx].removeClass('hidden')
+        } else {
+            this.circles[idx].addClass('active')
+            this.circles[idx].attr({ filter: 'url(\'#f1\')' })
+        }
     }
 
     stopCircle(circle) {
@@ -250,7 +288,13 @@ class App {
             this.audios[idx].pause()
             this.audios[idx].currentTime = 0 // should the sound go back to the beginning or not?
         }
-        this.circles[idx].removeClass("active")
+        if (this.useFilters) {
+            this.circles[idx].removeClass('active')
+            this.maskGroup[idx].addClass('hidden')
+        } else {
+            this.circles[idx].removeClass('active')
+            this.circles[idx].addClass('hidden')
+        }
     }
 
     isCirclePlaying(circle) {
@@ -318,7 +362,7 @@ class App {
                 let db = 20 * Math.log10(this.volumeSlider.value)
                 if (db <= -56) db = -120
                 this.volume.volume.value = db
-           })
+            })
         }
 
         // Resume webkitAudioContext in iOS >= 11, after user interaction
@@ -367,17 +411,19 @@ class App {
         const y = paddingY
 
         // TITLE
-        const title = `${this.nome}\n| ${this.ano} ANO | ${this.turma}`
+        const title = `${this.nome}\n${this.ano}º Ano, ${this.turma}`
         this.snap.multitext(x, y, title).attr({
             "font-size": "30px",
             "text-anchor": "end",
-            fill: "rgba(28, 68, 119, 0.95)"
+            // fill: "rgba(28, 68, 119, 0.95)"
+            fill: "#231F20"
         })
 
         // RECT ATTRS
         const f = this.snap.filter(Snap.filter.shadow(2, 2, 0.5))
         const rectAttrs = {
-            fill: "rgba(28, 68, 119, 0.93)",
+            // fill: "rgba(28, 68, 119, 0.93)",
+            fill: "white",
             rx: 5,
             ry: 5,
             filter: f
@@ -390,7 +436,7 @@ class App {
         this.fsRect = this.snap.rect(rectX, rectY, this.rectSide, this.rectSide).attr(rectAttrs)
 
         // FULLSCREEN IMAGES
-        this.fsImage = this.snap.image("../_src/svg/expand.svg", rectX+0.125*this.rectSide, rectY+0.125*this.rectSide, this.rectSide*0.75, this.rectSide*0.75)
+        this.fsImage = this.snap.image("../_src/svg/full-screen.svg", rectX + 0.125 * this.rectSide, rectY + 0.125 * this.rectSide, this.rectSide * 0.75, this.rectSide * 0.75)
         this.fsImage.attr({ id: "fsImage" })
         this.fsImage.click(() => { screenfull.toggle() })
 
@@ -425,7 +471,13 @@ class App {
         const infoX = paddingX
         const infoY = rectY
         this.infoRect = this.snap.rect(infoX, infoY, this.rectSide, this.rectSide).attr(rectAttrs).attr({ id: "infoRect" })
-        this.info = this.snap.image("../_src/svg/bma.svg", infoX, infoY, this.rectSide, this.rectSide).attr({ id: "info" })
+        this.info = this.snap.image(
+            "../_src/svg/bma.svg",
+            infoX + 0.125 * this.rectSide,
+            infoY + 0.125 * this.rectSide,
+            this.rectSide * 0.75,
+            this.rectSide * 0.75
+        ).attr({ id: "info" })
         this.info.click(() => {
             window.open('http://www.bragamediaarts.com/', '_blank');
         })
@@ -433,10 +485,10 @@ class App {
         // < foreignObject width = ${ volWidth } height = ${ volHeight } x = ${ volX } y = ${ volY }>
         // VOLUME (foreignObject version)
         if (this.volumeContainer) document.getElementById("volumeContainer").style.display = "none"
-        const volX = infoX + this.rectSide + this.rectSide/2
+        const volX = infoX + this.rectSide + this.rectSide / 2
         // const volX = 100
         // const volY = 0
-        const volY = !this.isMobile ? infoY : infoY + this.rectSide/4 - 15
+        const volY = !this.isMobile ? infoY : infoY + this.rectSide / 4 - 15
         // console.log(volY)
         // const volY = 100
         const volWidth = 300
@@ -474,7 +526,7 @@ class App {
 
         // Define values
         if (maximizing) {
-            w = 0.25 * this.width
+            w = 0.30 * this.width
             h = 0.8 * this.height
             w2 = this.credits.node.getAttribute("width")
             h2 = this.credits.node.getAttribute("height")
@@ -546,7 +598,7 @@ class App {
         if (maximizing) {
             setTimeout(() => {
                 this.creditsText.animate({ opacity: opacity }, 300)
-            }, 0.9*duration)
+            }, 0.9 * duration)
         } else {
             this.creditsText.attr({ opacity: 0, visibility: "hidden" })
         }
@@ -555,7 +607,7 @@ class App {
     resize() {
 
         this.svg.style.width = "100vw"
-        this.svg.style.height = `${100/this.ratio}vw`
+        this.svg.style.height = `${100 / this.ratio}vw`
 
         let svgWidthVw = this.svg.style.width.replace("vw", "")
         let svgHeightVw = this.svg.style.height.replace("vw", "")
@@ -578,15 +630,15 @@ class App {
 
         if (this.infoRect) {
 
-            const offX         = Number.parseInt(this.svg.getBoundingClientRect().left)
-            const rectWidth    = Number.parseInt(this.infoRect.attr("width"))
-            const realWidth    = Number.parseInt(this.svg.getBoundingClientRect().width)
+            const offX = Number.parseInt(this.svg.getBoundingClientRect().left)
+            const rectWidth = Number.parseInt(this.infoRect.attr("width"))
+            const realWidth = Number.parseInt(this.svg.getBoundingClientRect().width)
             const viewBoxWidth = this.snap.attr("viewBox").width
             const rectRealX = (realWidth * rectWidth) / viewBoxWidth
 
             const x = offX + rectRealX + rectRealX
 
-            if (this.volumeContainer) this.volumeContainer.style.left = `${x-10}px`
+            if (this.volumeContainer) this.volumeContainer.style.left = `${x - 10}px`
 
         }
 
@@ -690,6 +742,7 @@ document.addEventListener("DOMContentLoaded", function () {
     MeuMiniMapaConfig.shake = true
     const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     MeuMiniMapaConfig.preloadAudio = isIos
+    MeuMiniMapaConfig.useFilters = true
     app = new App(MeuMiniMapaConfig)
 })
 

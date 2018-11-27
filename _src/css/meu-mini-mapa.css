@@ -21,8 +21,6 @@ body, html {
     display: block;
     margin: 0 auto;
     width: 100vw;
-    background-repeat: no-repeat !important;
-    background-size: contain !important;
     border: 1px solid grey;
     border-radius: 4px;
     box-sizing: border-box;
@@ -32,10 +30,19 @@ tspan {
     font-weight: 500;
 }
 
+.area.mask {
+    fill: white;
+}
 .area {
+    fill: transparent;
+}
+
+.area {
+    -webkit-transition : -webkit-filter 500ms linear;
     fill: grey;
+    fill: white;
     stroke: none !important;
-    /* stroke-width: 1.5 !important; */
+    stroke-width: 1.5 !important;
     fill-opacity: 0.2;
     border-radius: 10px;
     z-index: 10;
@@ -43,25 +50,28 @@ tspan {
     transition: opacity 0.2s linear;
 }
 
+.filters {
+    fill-opacity: 1;
+}
+
 .area:hover {
     cursor: pointer !important;
     /* stroke: lightgrey !important; */
     /* stroke-width: 3 !important; */
-    fill-opacity: 0.3
+    /* fill-opacity: 0.3 */
 }
 
 .area.active {
     fill-opacity: 0.55;
-    /* stroke: darkslategrey; */
-}
-
-.area.active {
+    stroke: darkslategrey;
     fill: grey;
-    stroke: grey;
+    /* stroke: grey; */
     opacity: 1;
 }
 
 .hidden {
+    opacity: 0;
+}.hidden {
     opacity: 0;
 }
 
@@ -163,9 +173,6 @@ foreignObject {
     -o-filter: blur(2px);
     -ms-filter: blur(2px);
     filter: blur(2px);
-    /* width: 20px; */
-    /* height: 20px; */
-    /* background-color: #ccc; */
 }
 
 * {
@@ -177,9 +184,23 @@ foreignObject {
 }
 
 foreignObject {
-    font-size: 30px;
-    color: white;
+    font-size: 22px;
+    stroke: black;
 }
+
+foreignObject p {
+    color: black;
+}
+
+foreignObject i {
+    stroke: black;
+}
+
+.fa.fa-volume-up, .fa.fa-volume-down {
+    color: white;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+ }
 
 #creditsImage:hover, #fsImage {
     cursor: pointer;
@@ -270,3 +291,15 @@ html:fullscreen {
   -webkit-tap-highlight-color: transparent !important;
   outline-color: transparent !important;
 } */
+
+#creditsText img {
+    width: 60%;
+}
+
+.area.mask {
+    fill: white;
+}
+
+.filters {
+    fill-opacity: 1;
+}
