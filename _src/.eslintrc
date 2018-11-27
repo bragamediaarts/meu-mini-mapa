@@ -1,10 +1,13 @@
 {
     "extends": "airbnb-base",
-    "rules":{
+    "rules": {
         "semi": "off",
         "no-multi-spaces": "off",
         "padded-blocks": "off",
-        "quotes": "off",
+        "quotes": [
+            "error",
+            "single"
+        ],
         "space-before-function-paren": "off",
         "indent": "off",
         "space-infix-ops": "off",
@@ -18,7 +21,12 @@
         "object-shorthand": "off",
         "no-loop-func": "warn",
         "key-spacing": "off",
-        "no-unused-vars": ["warn", { "varsIgnorePattern": "^[A-Z]+$" }],
+        "no-unused-vars": [
+            "warn",
+            {
+                "varsIgnorePattern": "^[A-Z]+$"
+            }
+        ],
         "max-len": "warn",
         "func-names": "off",
         "no-underscore-dangle": "off",

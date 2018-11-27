@@ -1,18 +1,30 @@
 const MeuMiniMapaConfig = {
 	mapa: "mapa.jpg",
-	nome: "ESCOLA SECUNDÁRIA DE ALBERTO SAMPAIO",
+	nome: "Escola Secundária Alberto Sampaio",
 	titulo: "Alberto Sampaio",
 	ano: "9",
 	turma: "B2",
 	creditos:
-`
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-Quo nam, voluptatibus perspiciatis maxime reiciendis mollitia dolore!
-Provident itaque reiciendis eaque beatae.</p>
-<p>Impedit ducimus dolorem explicabo modi quo temporibus, cumque ut!</p>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-Quo nam, voluptatibus perspiciatis maxime reiciendis mollitia dolore!
-Provident itaque reiciendis eaque beatae.</p>
+		`
+<p>
+De que é feito o património da nossa cidade? Uma cidade são as suas pessoas, os seus edifícios,
+mas também os seus sons e as suas expressões. O meu mini mapa sonoro convida uma turma, um grupo
+ou uma comunidade a fazer a sua própria viagem pelo património material e imaterial de Braga.
+Partindo de seis locais emblemáticos, a aventura passa por criar uma ilustração do seu próprio mapa e pela
+gravação dos sons que o rodeiam e caracterizam. Esta experiência ficará disponível online em forma de mapa
+interactivo visual e sonoro. Assim todos podem desfrutar dos sons de Braga.
+</p>
+ <p>
+	Projecto Serviço Educativo Braga Media Artes<br>
+	Formadores: Marta Pombeiro & Artur Carvalho
+	Software: Nuno Hespanhol
+</p>
+ <p>
+	<a href="http://www.bragamediaarts.com" target="_blank">www.bragamediaarts.com</a>
+ </p>
+ <p>
+	<img src="../_src/svg/logo-unesco.svg">
+ </p>
 `,
 	sons: [
 		"sons/1_CPEstacao_Carris_master.mp3",

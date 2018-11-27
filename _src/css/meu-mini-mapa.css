@@ -13,7 +13,7 @@ body, html {
     padding-top: 0;
     letter-spacing: 0.5px;
     pointer-events: none;
-    font-family: 'AkkuratStd-Bold', sans-serif;
+    font-family: 'AkkuratStd-Regular', sans-serif;
     overflow: hidden;
 }
 
@@ -21,10 +21,8 @@ body, html {
     display: block;
     margin: 0 auto;
     width: 100vw;
-    background-repeat: no-repeat !important;
-    background-size: contain !important;
     border: 1px solid grey;
-    border-radius: 4px;
+    border-radius: 2px;
     box-sizing: border-box;
 }
 
@@ -32,10 +30,19 @@ tspan {
     font-weight: 500;
 }
 
+.area.mask {
+    fill: white;
+}
 .area {
+    fill: transparent;
+}
+
+.area {
+    -webkit-transition : -webkit-filter 500ms linear;
     fill: grey;
+    fill: white;
     stroke: none !important;
-    /* stroke-width: 1.5 !important; */
+    stroke-width: 1.5 !important;
     fill-opacity: 0.2;
     border-radius: 10px;
     z-index: 10;
@@ -43,21 +50,22 @@ tspan {
     transition: opacity 0.2s linear;
 }
 
+.filters {
+    fill-opacity: 1;
+}
+
 .area:hover {
     cursor: pointer !important;
     /* stroke: lightgrey !important; */
     /* stroke-width: 3 !important; */
-    fill-opacity: 0.3
+    /* fill-opacity: 0.3 */
 }
 
 .area.active {
     fill-opacity: 0.55;
-    /* stroke: darkslategrey; */
-}
-
-.area.active {
+    stroke: darkslategrey;
     fill: grey;
-    stroke: grey;
+    /* stroke: grey; */
     opacity: 1;
 }
 
@@ -69,8 +77,6 @@ tspan {
     display: inline;
     z-index: 10;
     position: relative;
-    /* width: 300px; */
-    /* left: 80px; */
 }
 
 #volumeContainer i {
@@ -89,9 +95,6 @@ tspan {
 #volumeContainer2 i {
     font-size: 2.5em;
     padding: 10px;
-    /* stroke: black;
-    -webkit-text-stroke-width: 0.3px;
-    -webkit-text-stroke-color: black; */
     -webkit-filter: drop-shadow( -2px -2px 2px grey );
             filter: drop-shadow( -2px -2px 2px grey );
 }
@@ -104,17 +107,6 @@ foreignObject {
     overflow: visible;
 }
 
-/* html version */
-/* #volumeSlider {
-    position: relative;
-    top: 5px;
-    width: 14vw;
-    max-width: 100px;
-    min-width: 30px;
-    height: 30px;
-} */
-
-/* foreignobject version */
 #volumeSlider {
     width: 30vw;
     max-width: 200px;
@@ -163,9 +155,6 @@ foreignObject {
     -o-filter: blur(2px);
     -ms-filter: blur(2px);
     filter: blur(2px);
-    /* width: 20px; */
-    /* height: 20px; */
-    /* background-color: #ccc; */
 }
 
 * {
@@ -186,8 +175,8 @@ foreignObject {
 }
 
 .shadow {
-    -webkit-filter: drop-shadow( -5px -5px 5px #000 );
-            filter: drop-shadow( -5px -5px 5px #000 );
+    -webkit-filter: drop-shadow( -5px -5px 5px #000);
+            filter: drop-shadow( -5px -5px 5px #000);
 }
 
 .loader {
@@ -217,18 +206,12 @@ svg image {
     -webkit-transition: opacity 2s linear;
 }
 
-#info:hover {
-    cursor: pointer;
-}
-
 #meter {
     margin: 10px;
 }
 
 #fobj {
     transform-origin: center;
-    /* transform: scale(1);
-    transform: translateX(100px) */
 }
 
 *:focus {
@@ -255,18 +238,53 @@ html:fullscreen {
   background-color: white;
 }
 
-/* *:focus {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-user-drag: none;
-  user-drag: none;
-  outline: none !important;
-  -webkit-tap-highlight-color: transparent;
-  outline: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-  outline-color: transparent !important;
-} */
+#creditsText a {
+    /* text-decoration: none; */
+    color: black;
+}
+
+#creditsText img {
+    width: 60%;
+}
+
+tspan {
+    fill: #231F20;
+}
+
+#creditsGroup {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+
+#creditsGroup.show {
+    opacity: 1;
+}
+
+#creditsGroup a:hover {
+    cursor: default;
+}
+
+#creditsGroup.show a:hover {
+    cursor: pointer;
+}
+
+#creditsGroup a:hover::before {
+    content: '';
+}
+
+#bottombarGroup {
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+}
+
+#bottombarGroup.hide {
+    opacity: 0;
+}
+
+#sobre:hover {
+    cursor: pointer;
+}
+
+.pointer-hover:hover {
+    cursor: pointer;
+}

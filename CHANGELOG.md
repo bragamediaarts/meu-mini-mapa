@@ -1,3 +1,10 @@
+# 0.6 (2018-11-27)
+
+- Incorporação de filtros de constraste em vez de círculos
+- Alteração texto créditos
+- Alterações design
+- Corrigido bug de fullscreen, que estava a afetar firefox e safari
+
 # 0.5 (2018-10-30)
 
 - som não estava a tocar em iOS

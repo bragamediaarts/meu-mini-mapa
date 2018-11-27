@@ -11,7 +11,7 @@
   margin: 0 auto;
   width: 15%;
   height: 15%;
-  background-color: rgb(28, 68, 119);
+  background-color: #231F20;
   border-radius: 100%;
   -webkit-animation: sk-circleBounceDelay 2.2s infinite ease-in-out both;
           animation: sk-circleBounceDelay 2.2s infinite ease-in-out both;

@@ -14,12 +14,23 @@ class Utils {
 
 class App {
 
-    constructor(params={}) {
+    constructor(params = {}) {
 
         this.nome = params.nome
         this.ano = params.ano
         this.turma = params.turma
         this.creditos = params.creditos
+
+        this.useFilters = params.useFilters
+        this.showGrid = params.showGrid
+
+        this.resources = {
+            bma: '../_src/svg/bma.svg',
+            bma2: '../_src/svg/bma2.svg',
+            volume: '../_src/svg/volume2.svg',
+            fullscreen: '../_src/svg/full-screen.svg',
+            close: '../_src/svg/close.svg',
+        }
 
         /**
          * This is the url of the map.
@@ -81,32 +92,28 @@ class App {
          */
         this.audios = []
 
-        this.svg = document.getElementById("svg")
-        this.snap = Snap("#svg")
+        this.svg = document.getElementById('svg')
+        this.snap = Snap('#svg')
 
         /**
          * @type {Array.<Paper.circle>}
          */
         this.circles = []
+        this.circlesMask = []
 
         /**
          * Node where all tracks connect, so that can control volume.
          * @type {Tone.Volume}
          */
-        this.volume = new Tone.Volume(20*Math.log10(0.8)) // -1.938 dB
+        this.volume = new Tone.Volume(20 * Math.log10(0.8)) // -1.938 dB
 
         this.isMobile = (/Mobi|Android/i.test(navigator.userAgent))
         this.isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-        this.loader = document.querySelector(".loader")
+        this.loader = document.querySelector('.loader')
         this.loader.style.left = `calc(50% - ${this.loader.clientWidth / 2}px)`
 
-        this.volumeSlider = document.getElementById("volumeSlider")
-        this.volumeContainer = document.getElementById("volumeContainer")
-
         this.init()
-
-        // setTimeout(() => { document.querySelector(".loader").remove() }, 100)
 
     }
 
@@ -114,26 +121,50 @@ class App {
 
         this.initSvg() // This needs to be first, to set some dimensions vars
 
-        window.addEventListener("resize", () => { this.resize() })
-
+        window.addEventListener('resize', () => { this.resize() })
         this.resize()
 
         this.initCircles()
         this.initUi()
-
+        this.initCredits()
         this.initAudio()
-
         this.initShake()
 
         try {
-            if (window.screen.orientation.type.includes("landscape")) {
-                this.svg.style.visibility = "visible"
-                this.loader.style.visibility = "visible"
+            if (window.screen.orientation.type.includes('landscape')) {
+                this.svg.style.visibility = 'visible'
+                this.loader.style.visibility = 'visible'
             }
         } catch (e) {
-            console.log("Failed hiding stuff in landscape")
-            this.svg.style.visibility = "visible"
-            this.loader.style.visibility = "visible"
+            this.svg.style.visibility = 'visible'
+            console.log('Failed hiding stuff in landscape', e)
+            this.loader.style.visibility = 'visible'
+        }
+
+        if (this.useFilters) {
+
+            // filters
+            // const f = this.snap.filter(Snap.filter.saturate(5))
+            // const f = this.snap.filter(Snap.filter.sepia(2.5))
+            const f = this.snap.filter(Snap.filter.contrast(5))
+            // const f = this.snap.filter(Snap.filter.invert(10))
+            // const f = this.snap.filter(Snap.filter.saturate(30))
+            // const f = this.snap.filter(Snap.filter.saturate(50))
+
+            this.maskGroup = this.snap.group(this.snap.selectAll('circle.mask'))
+
+            this.bgMask.attr({ mask: this.maskGroup, filter: f })
+            this.mask = this.snap.select('mask')
+        }
+
+        if (this.showGrid) {
+            for (let i = 0; i < 13; i++) {
+                const x = this.getGridX(i)
+                this.snap.line(x, 0, x, this.height).attr({ strokeWidth: 3, stroke: 'rgba(255,0,0,0.3)' })
+            }
+            this.snap.line(0, this.sobreY, this.width, this.sobreY).attr({ stroke: 'red', strokeWidth: 3 })
+            const bbM = this.height - this.bbH / 2
+            this.snap.line(0, bbM, this.width, bbM).attr({ stroke: 'red', strokeWidth: 3 })
         }
 
     }
@@ -149,20 +180,20 @@ class App {
             this.circles.forEach(circle => this.stopCircle(circle))
         }, false);
 
-        window.addEventListener("orientationchange", () => {
+        window.addEventListener('orientationchange', () => {
             try {
-                if (window.screen.orientation.type.includes("landscape")) {
-                    this.svg.style.visibility = "visible"
-                    this.loader.style.visibility = "visible"
+                if (window.screen.orientation.type.includes('landscape')) {
+                    this.svg.style.visibility = 'visible'
+                    this.loader.style.visibility = 'visible'
                     Tone.context.resume()
                 } else {
-                    this.svg.style.visibility = "hidden"
-                    this.loader.style.visibility = "hidden"
+                    this.svg.style.visibility = 'hidden'
+                    this.loader.style.visibility = 'hidden'
                     Tone.context.suspend()
                 }
                 this.resize()
             } catch (e) {
-                console.log("Failed orientation change callback", e)
+                console.log('Failed orientation change callback', e)
             }
         })
 
@@ -170,10 +201,11 @@ class App {
 
     initSvg() {
 
-        this.snap.attr({ filter: "url(#f1)" })
+        this.snap.attr({ filter: 'url(#f1)' })
 
-        const url = `url("../${this.slug}/${this.background}")`
-        this.svg.style.background = url
+        const src = `../${this.slug}/${this.background}`
+        const url = `url("${src}")`
+        // this.svg.style.background = url
 
         this.ratio = 1.426
 
@@ -184,18 +216,21 @@ class App {
         const minHeight = Number.parseInt(minWidth / this.ratio)
 
         // css props
-        this.svg.style.maxWidth  = `${this.width}px`
+        this.svg.style.maxWidth = `${this.width}px`
         this.svg.style.maxHeight = `${this.height}px`
-        this.svg.style.minWidth  = `${minWidth}px`
+        this.svg.style.minWidth = `${minWidth}px`
         this.svg.style.minHeight = `${minHeight}px`
 
         // html attribute
-        this.svg.setAttribute("viewBox", `0 0 ${this.width} ${this.height}`)
+        this.svg.setAttribute('viewBox', `0 0 ${this.width} ${this.height}`)
 
         // need to first set some initial dimensions, because resize will rely on this
-        this.svg.style.width = "100vw"
+        this.svg.style.width = '100vw'
         const heightVw = Number(1 / this.ratio).toFixed(2) * 100
         this.svg.style.height = `${heightVw}vw`
+
+        this.bg = this.snap.image(src).attr({ id: 'bg' })
+        if (this.useFilters) this.bgMask = this.snap.image(src).attr({ id: 'mask' })
 
     }
 
@@ -211,12 +246,22 @@ class App {
             const r = w / 2
 
             let circle = this.snap.circle(x, y, r).attr({
-                "data-sound": idx,
-                "z-index": 10
+                'data-sound': idx,
+                'z-index': 10
             })
-            circle.addClass("area")
-            circle.addClass("hidden")
+
+            circle.attr({ fill: 'black' })
+            circle.addClass('area')
+            circle.addClass('hidden')
+            if (this.useFilters) circle.addClass('filters')
+
             this.circles.push(circle)
+
+            if (this.useFilters) {
+                const cMask = circle.clone()
+                cMask.addClass('mask')
+                this.circlesMask.push(circle)
+            }
 
         })
 
@@ -231,15 +276,19 @@ class App {
     }
 
     getCircleIdx(circle) {
-        return Number.parseInt(circle.attr("data-sound"))
+        return Number.parseInt(circle.attr('data-sound'))
     }
 
     playCircle(circle) {
         const idx = this.getCircleIdx(circle)
         if (this.preloadAudio) this.players[idx].start()
         else this.audios[idx].play()
-        this.circles[idx].addClass("active")
-        this.circles[idx].attr({ filter: "url('#f1')" })
+        if (this.useFilters) {
+            this.maskGroup[idx].removeClass('hidden')
+        } else {
+            this.circles[idx].addClass('active')
+            this.circles[idx].attr({ filter: 'url(\'#f1\')' })
+        }
     }
 
     stopCircle(circle) {
@@ -250,13 +299,19 @@ class App {
             this.audios[idx].pause()
             this.audios[idx].currentTime = 0 // should the sound go back to the beginning or not?
         }
-        this.circles[idx].removeClass("active")
+        if (this.useFilters) {
+            this.circles[idx].removeClass('active')
+            this.maskGroup[idx].addClass('hidden')
+        } else {
+            this.circles[idx].removeClass('active')
+            this.circles[idx].addClass('hidden')
+        }
     }
 
     isCirclePlaying(circle) {
         let ret
         const idx = this.getCircleIdx(circle)
-        if (this.preloadAudio) ret = this.players[idx].state === "started"
+        if (this.preloadAudio) ret = this.players[idx].state === 'started'
         else ret = !this.audios[idx].paused
         return ret
     }
@@ -297,7 +352,7 @@ class App {
         } else {
 
             this.vue = new Vue({
-                el: "#audios",
+                el: '#audios',
                 data: {
                     audios: this.urls
                 }
@@ -312,13 +367,13 @@ class App {
 
         }
 
-        this.volumeSlider = document.getElementById("volumeSlider")
+        this.volumeSlider = document.getElementById('volumeSlider')
         if (this.volumeSlider) {
-            this.volumeSlider.addEventListener("input", () => {
+            this.volumeSlider.addEventListener('input', () => {
                 let db = 20 * Math.log10(this.volumeSlider.value)
                 if (db <= -56) db = -120
                 this.volume.volume.value = db
-           })
+            })
         }
 
         // Resume webkitAudioContext in iOS >= 11, after user interaction
@@ -338,10 +393,16 @@ class App {
     }
 
     createMediaSources() {
-        this.audios = document.querySelectorAll("audio")
+        this.audios = document.querySelectorAll('audio')
         this.audios.forEach(audio => {
             Tone.context.createMediaElementSource(audio).connect(this.volume)
         })
+    }
+
+    changeVolume(val) {
+        let db = 20 * Math.log10(val)
+        if (db <= -56) db = -Infinity
+        this.volume.volume.value = db
     }
 
     loaded() {
@@ -352,213 +413,239 @@ class App {
         // Snap.select("#svg").attr({ filter: "" })
 
         this.loader.remove()
-        this.snap.attr({ filter: "" })
+        this.snap.attr({ filter: '' })
 
-        if (this.volumeContainer) this.volumeContainer.classList.remove("blur")
-        document.body.style.pointerEvents = "all"
+        document.body.style.pointerEvents = 'all'
 
     }
 
     initUi() {
 
-        const paddingX = 20
-        const paddingY = 120
-        const x = this.width - paddingX
-        const y = paddingY
+        const paddingX = 50
+        this.paddingX = paddingX
 
-        // TITLE
-        const title = `${this.nome}\n| ${this.ano} ANO | ${this.turma}`
-        this.snap.multitext(x, y, title).attr({
-            "font-size": "30px",
-            "text-anchor": "end",
-            fill: "rgba(28, 68, 119, 0.95)"
+        // BOTTOM BAR
+        const bbH = this.isMobile ? 150 : 125
+        this.bbH = bbH
+        this.bottombar = this.snap.rect(0, this.height - bbH, this.width, bbH).attr({ fill: 'white' })
+        const bbY = Number.parseInt(this.bottombar.attr('y'))
+
+        // BMA LOGO (just image)
+        const imgH = bbH * 0.6
+        const bmaX = this.paddingX / 2
+
+        const bmaW = imgH
+        const bmaY = bbY + (bbH - bmaW) / 2
+        this.bma = this.snap.image(this.resources.bma, bmaX, bmaY, bmaW, bmaW)
+        this.bma.attr({
+            id: 'bma'
         })
 
-        // RECT ATTRS
-        const f = this.snap.filter(Snap.filter.shadow(2, 2, 0.5))
-        const rectAttrs = {
-            fill: "rgba(28, 68, 119, 0.93)",
-            rx: 5,
-            ry: 5,
-            filter: f
+        // BMA2 (BMA Text Image)
+        const r = 1280 / 498
+        const bma2X = this.getGridX(1)
+        const bma2H = imgH * 0.6
+        const bma2Y = bbY + (bbH - bma2H) / 2
+        this.bma2 = this.snap.image(this.resources.bma2, bma2X, bma2Y, bma2H * r, bma2H)
+
+        // ESCOLA
+        const x = this.getGridX(3)
+        const attrs = {
+            fontSize: '22px',
+            color: '#231F20',
+            id: 'escolaText',
+            'alignment-baseline': 'hanging',
+            'dominant-baseline': 'hanging'
         }
 
-        // FULLSCREEN RECT
-        this.rectSide = this.isMobile ? 150 : 100
-        const rectX = this.width - this.rectSide - paddingX
-        const rectY = this.height - this.rectSide - 10
-        this.fsRect = this.snap.rect(rectX, rectY, this.rectSide, this.rectSide).attr(rectAttrs)
+        // -- ESCOLA 1
+        this.e1 = this.snap.text(x, bbY, this.nome).attr(attrs)
+        const eH = this.e1.getBBox().height
+        const ey = bbY + (bbH - eH * 2) / 2
+        this.e1.attr('y', ey)
 
-        // FULLSCREEN IMAGES
-        this.fsImage = this.snap.image("../_src/svg/expand.svg", rectX+0.125*this.rectSide, rectY+0.125*this.rectSide, this.rectSide*0.75, this.rectSide*0.75)
-        this.fsImage.attr({ id: "fsImage" })
-        this.fsImage.click(() => { screenfull.toggle() })
+        // -- ESCOLA 2
+        this.e2 = this.snap.text(x, bbY, `${this.ano}º Ano, ${this.turma}`).attr(attrs)
+        const e2y = ey + eH
+        this.e2.attr('y', e2y)
 
-        if (!screenfull.enabled) {
-            this.fsRect.remove()
+        this.escolaText = this.snap.group(this.e1, this.e2)
+
+        // SOBRE
+        const sobreX = this.getGridX(8)
+        this.sobre = this.snap.text(sobreX, bbY, 'Sobre o projecto').attr(attrs).attr({
+            id: 'sobre',
+            textDecoration: 'underline'
+        })
+        const sobreH = this.sobre.getBBox().height
+        const sobreY = bbY + (bbH - sobreH * 2) / 2
+        this.sobreY = sobreY
+        this.sobre.attr({ y: sobreY })
+        this.sobre.click(() => {
+            this.creditsGroup.toggleClass('show')
+            if (this.creditsGroup.hasClass('show')) this.creditsGroup.attr({ display: 'unset' })
+        })
+
+        // COPYRIGHT
+        const copyrightY = sobreY + sobreH
+        this.copyright = this.snap.text(sobreX, copyrightY, '© 2018').attr(attrs).attr({
+            id: 'copyright',
+        })
+
+        // FULLSCREEN
+        const fsW = imgH
+        const fsH = imgH
+        const fsX = this.width - paddingX / 2 - fsW
+        const fsY = bbY + (bbH - fsW) / 2
+        this.fsImage = this.snap.image(this.resources.fullscreen, fsX, fsY, fsW, fsW)
+        this.fsImage.attr({ id: 'fsImage' })
+        this.fsImage.click(() => {
+            screenfull.toggle()
+        })
+        this.closeBar = this.snap.image(this.resources.close, fsX + fsW * 0.25, fsY + fsH * 0.25, fsW * 0.5, fsH * 0.5).attr({ id: 'closeBar' })
+
+        // VOLUME
+        const vx = this.getGridX(10)
+        const vw = (this.getGridX(11) - this.getGridX(10)) * 1.1
+        const vr = 720 / 122
+        const vh = vw / vr
+        // const vy = bbY + (bbH - vh) / 2
+        const vy = fsY + vh / 2
+        this.volumeImage = this.snap.image(this.resources.volume, vx, vy, vw, vh)
+
+        let vcxMin = vx + vw * 0.22
+        let vcxMax = vx + vw * 0.71
+        let vcxStartX = Utils.map(0.8, 0, 1, vcxMin, vcxMax)
+        const vcy = vy + vh / 2
+        // const vcr = 30
+        const vcr = this.isMobile ? 14 : 10
+        this.volumeCircle = this.snap.circle(vcxStartX, vcy, vcr)
+            .addClass('pointer-hover')
+            .attr({
+                fill: 'white',
+                stroke: 'black',
+                strokeWidth: 3
+            })
+
+        this.volumeCircleLastX = Number(this.volumeCircle.attr('cx'))
+
+        this.volumeCircle.drag((dx) => {
+            let dragX = this.volumeCircleLastX + Number(dx) * 1.5
+            if (dragX <= vcxMin) dragX = vcxMin
+            else if (dragX >= vcxMax) dragX = vcxMax
+            this.volumeCircle.attr({ cx: dragX })
+            this.changeVolume(Utils.map(dragX, vcxMin, vcxMax, 0, 1))
+        }, () => {
+            this.volumeCircleLastX = Number(this.volumeCircle.attr('cx'))
+        }, () => {
+            // this.volumeCircleLastX = Number(this.volumeCircle.attr('cx'))
+        })
+
+        this.bottombarGroup = this.snap.group(
+            this.bottombar,
+            this.bma,
+            this.bma2,
+            this.escolaText,
+            this.sobre,
+            this.copyright,
+            this.volumeImage,
+            this.volumeCircle,
+            this.fsImage
+        ).attr({ id: 'bottombarGroup' })
+
+        if (!screenfull.enabled && !window.parent.screenfull.enabled) {
             this.fsImage.remove()
         }
 
         // check if enabled, since in iOS devices it's not available
-        if (screenfull.enabled) {
-            screenfull.on("change", () => {
+        if (window.parent.screenfull.enabled || window.screenfull.enabled) {
+            screenfull.on('change', () => {
+                if (screenfull.isFullscreen) this.bottombarGroup.addClass('hide')
+                else this.bottombarGroup.removeClass('hide')
                 // need to listen to event, since going full screen takes some time to resolve
                 if (this.isMobile) {
-                    if (screenfull.isFullscreen) window.screen.orientation.lock("landscape")
+                    if (screenfull.isFullscreen) window.screen.orientation.lock('landscape')
                     else window.screen.orientation.unlock()
                 }
                 setTimeout(() => { this.resize() }, 100)
             })
         }
 
-        // CREDITS RECT
-        this.creditsX = screenfull.enabled ? rectX - this.rectSide * 1.2 : rectX
-        this.creditsY = rectY
-        this.credits = this.snap.rect(this.creditsX, this.creditsY, this.rectSide, this.rectSide).attr(rectAttrs).attr({ id: "credits" })
-
-        // CREDITS IMAGE
-        this.creditsImage = this.snap.image("../_src/svg/info_w.svg", this.creditsX + 0.125 * this.rectSide, this.creditsY + 0.125 * this.rectSide, this.rectSide * 0.75, this.rectSide * 0.75)
-        this.creditsImage.attr({ id: "creditsImage" })
-        this.creditsImage.click(() => { this.onClick() })
-
-        // INFO LINK
-        const infoX = paddingX
-        const infoY = rectY
-        this.infoRect = this.snap.rect(infoX, infoY, this.rectSide, this.rectSide).attr(rectAttrs).attr({ id: "infoRect" })
-        this.info = this.snap.image("../_src/svg/bma.svg", infoX, infoY, this.rectSide, this.rectSide).attr({ id: "info" })
-        this.info.click(() => {
-            window.open('http://www.bragamediaarts.com/', '_blank');
-        })
-
-        // < foreignObject width = ${ volWidth } height = ${ volHeight } x = ${ volX } y = ${ volY }>
-        // VOLUME (foreignObject version)
-        if (this.volumeContainer) document.getElementById("volumeContainer").style.display = "none"
-        const volX = infoX + this.rectSide + this.rectSide/2
-        // const volX = 100
-        // const volY = 0
-        const volY = !this.isMobile ? infoY : infoY + this.rectSide/4 - 15
-        // console.log(volY)
-        // const volY = 100
-        const volWidth = 300
-        const volHeight = 40
-        const fobj = `
-        <svg>
-            <foreignObject id="fobj" width=${volWidth} height=${volHeight} x=${volX} y=${volY}>
-                <div id="volumeContainer2" style="display: table">
-                    <div style="display: table-cell; vertical-align: middle"><i class="fa fa-volume-down"></i></div>
-                    <div style="display: table-cell; vertical-align: middle"><input type="range" min=0 max=1 step=0.001 id="volumeSlider" value=0.8 /></div>
-                    <div style="display: table-cell; vertical-align: middle"><i class="fa fa-volume-up"></i></div>
-                </div>
-            </foreignObject>
-        </svg>
-        `
-        let p = Snap.parse(fobj)
-        this.snap.append(p)
-        this.snap.group().append(p)
-
         this.resize()
 
     }
 
-    onClick() {
+    getGridX(igrid) {
+        const gridStep = (this.width - 2 * this.paddingX) / 12
+        return this.paddingX + gridStep * igrid
+    }
 
-        // let animation run until the end, before being able to trigger another one
-        if (this.animating) return
+    initCredits() {
 
-        this.animating = true
-
-        const maximizing = Number.parseInt(this.credits.node.getAttribute("width")) === this.rectSide
-
-        /* eslint-disable-next-line one-var, one-var-declaration-per-line */
-        let w, h, w2, h2, x, y, opacity
-
-        // Define values
-        if (maximizing) {
-            w = 0.25 * this.width
-            h = 0.8 * this.height
-            w2 = this.credits.node.getAttribute("width")
-            h2 = this.credits.node.getAttribute("height")
-            x = this.credits.node.getAttribute("x") - w + parseInt(w2)
-            y = this.credits.node.getAttribute("y") - h + parseInt(h2)
-
-            opacity = 1
-
-            if (!this.creditsText) {
-
-                // Snap plugin version
-                // get text height
-                // const attrs = {
-                //     fontSize: "30px",
-                //     textAnchor: "start",
-                //     fill: "white",
-                //     opacity: 0
-                // }
-                // const t = this.snap.text(0, 0, "LOREM").attr(attrs)
-                // const textHeight = t.getBBox().height
-                // t.remove()
-                // const padding = 30
-                // const textX = x + padding
-                // const textY = y + padding + textHeight
-                // this.creditsText = this.snap.multitext(textX, textY, this.creditos).attr(attrs);
-
-                // Foreign object version
-                const padding = 30
-                const textX = x + padding
-                const textY = y + padding
-                const textWidth = w - 2 * padding
-                const textHeight = h - 2 * padding - this.rectSide
-                const fobj = `
-                    <foreignObject id="creditsText" width="${textWidth}" height="${textHeight}" x=${textX} y=${textY} opacity="0">
-                        <p>
-                            ${this.creditos}
-                        </p>
-                    </foreignObject>
-                `
-                this.creditsText = Snap.parse(fobj);
-                this.snap.append(this.creditsText);
-                this.creditsText = this.snap.select("#creditsText")
-                // this.creditsText(() => { this.onClick() })
-
-            }
-
-            this.creditsText.attr({ visibility: "visible", fontFamily: 'AkkuratStd-Regular' })
-
-
-        } else {
-            x = this.creditsX
-            y = this.creditsY
-            w = this.rectSide
-            h = this.rectSide
-            opacity = 0
-        }
-
-        // And then animate
-        const duration = 800
-        this.credits.animate({
-            x: x,
-            y: y,
-            width: w,
-            height: h
-        }, duration, mina.easeinout, () => {
-            this.animating = false
+        const x1 = this.getGridX(8)
+        const x2 = this.width - this.paddingX
+        const h = 0.7 * this.height
+        const w = this.width - x1
+        const y1 = this.height - this.bbH - h
+        const y2 = y1 + h
+        this.credits = this.snap.rect(x1, y1, w, h).attr({
+            fill: '#F5F5F5'
         })
 
-        if (maximizing) {
-            setTimeout(() => {
-                this.creditsText.animate({ opacity: opacity }, 300)
-            }, 0.9*duration)
-        } else {
-            this.creditsText.attr({ opacity: 0, visibility: "hidden" })
-        }
+        // Foreign object version
+        const x = x1
+        const y = y1
+        const padding = 30
+        const textX = x + padding
+        const textY = y + padding
+        // const textWidth = w - 2 * padding
+        const textWidth = x2 - x1 - padding * 2
+        const textHeight = h - 2 * padding
+        const fobj = `
+            <foreignObject id="creditsText" width="${textWidth}" height="${textHeight}" x=${textX} y=${textY}>
+                <p>
+                    ${this.creditos}
+                </p>
+            </foreignObject>
+        `
+        this.creditsText = Snap.parse(fobj);
+        this.snap.append(this.creditsText);
+        this.creditsText = this.snap.select('#creditsText')
+        // this.creditsText(() => { this.onClick() })
+
+        this.creditsText.attr({
+            visibility: 'visible',
+            fontFamily: 'AkkuratStd-Regular',
+            fontSize: '24px',
+            color: 'rgba(0, 0, 0, 1)'
+        })
+
+        const closeX = x2
+        const closeY = textY
+        const closeW = padding
+        this.creditsClose = this.snap.image(this.resources.close, closeX, closeY, closeW, closeW)
+            .addClass('pointer-hover')
+
+        this.creditsClose.click(() => {
+            this.creditsGroup.toggleClass('show')
+        })
+
+        this.creditsGroup = this.snap.group(this.credits, this.creditsText, this.creditsClose)
+            .attr({ id: 'creditsGroup', display: 'none' })
+
+        this.creditsGroup.node.addEventListener('transitionend', () => {
+            if (!this.creditsGroup.hasClass('show')) this.creditsGroup.attr('display', 'none')
+        })
+
     }
 
     resize() {
 
-        this.svg.style.width = "100vw"
-        this.svg.style.height = `${100/this.ratio}vw`
+        this.svg.style.width = '100vw'
+        this.svg.style.height = `${100 / this.ratio}vw`
 
-        let svgWidthVw = this.svg.style.width.replace("vw", "")
-        let svgHeightVw = this.svg.style.height.replace("vw", "")
+        let svgWidthVw = this.svg.style.width.replace('vw', '')
+        let svgHeightVw = this.svg.style.height.replace('vw', '')
         let svgWidthPx = Utils.vw(svgWidthVw)
         let svgHeightPx = Utils.vw(svgHeightVw)
 
@@ -576,28 +663,12 @@ class App {
         const h = this.svg.clientHeight || this.svg.parentNode.clientHeight
         this.loader.style.top = `${h / 2 - this.loader.clientHeight / 2}px`
 
-        if (this.infoRect) {
-
-            const offX         = Number.parseInt(this.svg.getBoundingClientRect().left)
-            const rectWidth    = Number.parseInt(this.infoRect.attr("width"))
-            const realWidth    = Number.parseInt(this.svg.getBoundingClientRect().width)
-            const viewBoxWidth = this.snap.attr("viewBox").width
-            const rectRealX = (realWidth * rectWidth) / viewBoxWidth
-
-            const x = offX + rectRealX + rectRealX
-
-            if (this.volumeContainer) this.volumeContainer.style.left = `${x-10}px`
-
-        }
-
-        // viewportUnitsBuggyfill.refresh()
-
     }
 
 }
 
 App.defaults = {
-    mapa: "mapa.jpg",
+    mapa: 'mapa.jpg',
     shake: true,
     preloadAudio: false,
     areas: [
@@ -663,17 +734,17 @@ App.defaults = {
         }
     ],
     sons: [
-        "1.mp3", "2.mp3", "3.mp3", "4.mp3", "5.mp3", "6.mp3", "7.mp3", "8.mp3", "9.mp3", "10.mp3"
+        '1.mp3', '2.mp3', '3.mp3', '4.mp3', '5.mp3', '6.mp3', '7.mp3', '8.mp3', '9.mp3', '10.mp3'
     ]
 }
 
 /* eslint-disable no-unused-vars, no-param-reassign */
 Snap.plugin(function (Snap, Element, Paper, glob) {
     Paper.prototype.multitext = function (x, y, txt) {
-        txt = txt.split("\n");
+        txt = txt.split('\n');
         let t = this.text(x, y, txt);
-        t.selectAll("tspan:nth-child(n+2)").attr({
-            dy: "1.2em",
+        t.selectAll('tspan:nth-child(n+2)').attr({
+            dy: '1.2em',
             x: x
         });
         return t;
@@ -683,13 +754,15 @@ Snap.plugin(function (Snap, Element, Paper, glob) {
 /* eslint-disable-next-line no-var, vars-on-top */
 var app
 
-document.addEventListener("DOMContentLoaded", function () {
-    const encoded = window.location.hash.replace(/#/, "")
+document.addEventListener('DOMContentLoaded', function () {
+    const encoded = window.location.hash.replace(/#/, '')
     const decoded = decodeURIComponent(encoded)
     const MeuMiniMapaConfig = JSON.parse(decoded)
     MeuMiniMapaConfig.shake = true
     const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    MeuMiniMapaConfig.preloadAudio = isIos
+    MeuMiniMapaConfig.preloadAudio = false // true is buggy atm
+    MeuMiniMapaConfig.useFilters = true
+    MeuMiniMapaConfig.showGrid = false
     app = new App(MeuMiniMapaConfig)
 })
 

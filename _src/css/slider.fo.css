@@ -10,7 +10,8 @@ input[type=range]::-webkit-slider-runnable-track {
   height: 30px;
   cursor: pointer;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  background: rgb(28, 68, 119);
+  /* background: rgb(28, 68, 119); */
+  background: #231F20;
   border-radius: 20px;
   border: 0.2px solid #010101;
 }
