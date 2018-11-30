@@ -1,9 +1,9 @@
 const MeuMiniMapaConfig = {
 	mapa: "mapa.jpg",
-	nome: "Escola Secundária Alberto Sampaio",
-	titulo: "Alberto Sampaio",
-	ano: "9",
-	turma: "B2",
+	nome: "Escola Secundária Mapa Teste,
+	titulo: "Mapa Teste",
+	ano: "123",
+	turma: "ABC",
 	creditos:
 		`
 <p>
