@@ -32,7 +32,7 @@ O campo `sons` consiste na lista dos sons a serem utilizados, segundo a seguinte
 
 Depois de seguir as instruções anterior, será necessário fazer o upload dos ficheiros para o Github, de maneira a que ficam disponíveis na internet.
 
-1. Entrar no link do projeto, neste momento é https://github.com/nunoh/meu-mini-mapa.
+1. Entrar no link do projeto: https://github.com/bragamediaarts/meu-mini-mapa.
 
 2. Arrastar a pasta do mapa para a interface, tal como mostra a imagem.
 
@@ -46,11 +46,11 @@ Depois de seguir as instruções anterior, será necessário fazer o upload dos 
     <img src="_src/img/commit.png" width=750 />
 </p>
 
-4. Neste momento, assim que acabar de processar, o novo mapa estará disponível (pode demorar até uns 5 minutos, mas normalmente é quase instantâneo), através do nome da pasta, neste caso: https://nunoh.github.com/meu-mini-mapa/Alberto-Sampaio.
+4. Neste momento, assim que acabar de processar, o novo mapa estará disponível (pode demorar até uns 5 minutos, mas normalmente é quase instantâneo), através do nome da pasta, neste caso: https://bragamediaarts.github.com/meu-mini-mapa/Alberto-Sampaio.
 
 ## Alterar um mapa já publicado
 
-1. Entrar na página do repositório do Github. Neste caso, https://github.com/nunoh/meu-mini-mapa.
+1. Entrar na página do repositório do Github: https://github.com/bragamediaarts/meu-mini-mapa.
 2. Entrar na pasta do mapa que se pretende editar. Neste caso, vamos considerar o `Alberto-Sampaio`.
 3. Para editar os dados, clicar no ficheiro `config.js` e depois carregar no botão de edição tal como indica a figura:
 
