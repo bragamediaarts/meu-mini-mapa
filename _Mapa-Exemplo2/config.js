@@ -1,6 +1,6 @@
 const MeuMiniMapaConfig = {
 	mapa: "mapa.jpg",
-	nome: "Escola Secundária Mapa Teste,
+	nome: "Escola Secundária Mapa Teste",
 	titulo: "Mapa Teste",
 	ano: "123",
 	turma: "ABC",
