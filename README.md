@@ -8,7 +8,7 @@ Instruções:
 
 ## Criar um novo mapa
 
-1. Duplicar pasta `_Mapa-Exemplo`.
+1. Duplicar pasta `_Mapa-Exemplo`. Para isso é preciso descarregar o projeto usando o botão verde acima que diz `Clone or Download`. 
 
 2. Mudar o nome da pasta duplicada para o nome desejado que corresponderá ao url de acesso. Por exemplo: `Alberto-Sampaio`.
 
