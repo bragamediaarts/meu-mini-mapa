@@ -4,23 +4,24 @@ const MeuMiniMapaConfig = {
 	titulo: "EB 2,3 Nogueira",
 	ano: "5",
 	turma: "D",
-	creditos:<b> Captações e Ilustrações:</b>
-<p>	
-Afonso
-Cláudia
-Eduardo
-Fernando
-Filipa
-Gabriel
-Gonçalo
-Guilherme
-João
-Laura
-Lucas
-Paulo
-Rafael
-Raquel	
-</p>	
+	creditos: `
+<b>Captações e Ilustrações:</b>
+<p>
+	Afonso
+	Cláudia
+	Eduardo
+	Fernando
+	Filipa
+	Gabriel
+	Gonçalo
+	Guilherme
+	João
+	Laura
+	Lucas
+	Paulo
+	Rafael
+	Raquel
+</p>
 <p>
 De que é feito o património da nossa cidade? Uma cidade são as suas pessoas, os seus edifícios,
 mas também os seus sons e as suas expressões. O meu mini mapa sonoro convida uma turma, um grupo
@@ -40,7 +41,8 @@ interactivo visual e sonoro. Assim todos podem desfrutar dos sons de Braga.
  <p>
 	<img src="../_src/svg/logo-unesco.svg">
  </p>
-`,
+`
+	,
 	sons: [
 		"sons/1_Agua.mp3",
 		"sons/2_Aula-de-musica.mp3",
