@@ -52,7 +52,7 @@ interactivo visual e sonoro. Assim todos podem desfrutar dos sons de Braga.
 		"sons/6_Portao.mp3",
 		"sons/7_Escadas.mp3",
 		"sons/8_Folhas.mp3",
-		"sons/9_Poça.mp3",
+		"sons/9_Poca.mp3",
 		"sons/10_autoestrada.mp3"
 	]
 }
