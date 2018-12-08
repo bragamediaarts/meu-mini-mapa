@@ -280,6 +280,7 @@ class App {
     }
 
     playCircle(circle) {
+        if (Tone.context.state === 'suspended') Tone.context.resume()
         const idx = this.getCircleIdx(circle)
         if (this.preloadAudio) this.players[idx].start()
         else this.audios[idx].play()
