@@ -4,7 +4,8 @@ const MeuMiniMapaConfig = {
 	titulo: "EB 2,3 Nogueira",
 	ano: "6",
 	turma: "E",
-	creditos:<b>Captações e Ilustrações:</b>
+	creditos:`
+<b>Captações e Ilustrações:</b>
 <p>
 	Afonso; Agustin; Augusto; Beatriz; Dinis; Enrika; Giovanna; Iara; João; Leandro; Leonor; Martim; Pedro; Rita e Vanessa.
 </p>
