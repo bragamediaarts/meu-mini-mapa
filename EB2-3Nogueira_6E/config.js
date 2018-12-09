@@ -4,10 +4,10 @@ const MeuMiniMapaConfig = {
 	titulo: "EB 2,3 Nogueira",
 	ano: "6",
 	turma: "E",
-	creditos:"Captações e Ilustrações:
-<p>	
-Afonso; Agustin; Augusto; Beatriz; Dinis; Enrika; Giovanna; Iara; João; Leandro; Leonor; Martim; Pedro; Rita; Vanessa.
-</p>	
+	creditos:<b>Captações e Ilustrações:</b>
+<p>
+	Afonso; Agustin; Augusto; Beatriz; Dinis; Enrika; Giovanna; Iara; João; Leandro; Leonor; Martim; Pedro; Rita e Vanessa.
+</p>
 <p>
 De que é feito o património da nossa cidade? Uma cidade são as suas pessoas, os seus edifícios,
 mas também os seus sons e as suas expressões. O meu mini mapa sonoro convida uma turma, um grupo
