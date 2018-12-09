@@ -7,20 +7,8 @@ const MeuMiniMapaConfig = {
 	creditos: `
 <b>Captações e Ilustrações:</b>
 <p>
-	Afonso
-	Cláudia
-	Eduardo
-	Fernando
-	Filipa
-	Gabriel
-	Gonçalo
-	Guilherme
-	João
-	Laura
-	Lucas
-	Paulo
-	Rafael
-	Raquel
+	Afonso; Cláudia; Eduardo; Fernando; Filipa; Gabriel; Gonçalo; Guilherme; João; Laura; Lucas; Paulo; Rafael
+	e Raquel.
 </p>
 <p>
 De que é feito o património da nossa cidade? Uma cidade são as suas pessoas, os seus edifícios,
