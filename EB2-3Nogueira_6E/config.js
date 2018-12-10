@@ -33,9 +33,10 @@ interactivo visual e sonoro. Assim todos podem desfrutar dos sons de Braga.
 		"sons/1_Sala-dos-computadores.mp3",
 		"sons/2_Aula.mp3",
 		"sons/3_Pavilhao.mp3",
-		"sons/4_Recreio.mp3",
+		"sons/4_Sala-do-aluno.mp3",
 		"sons/5_Casa-de-banho.mp3",
 		"sons/6_Folhas.mp3",
+		"",
 		"sons/8_Chuva.mp3",
 		"sons/9_Biblioteca.mp3",
 		"sons/10_Via-Rapida.mp3"
