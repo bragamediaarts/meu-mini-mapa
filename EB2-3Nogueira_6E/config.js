@@ -7,7 +7,7 @@ const MeuMiniMapaConfig = {
 	creditos:`
 <b>Captações e Ilustrações:</b>
 <p>
-	Afonso; Agustin; Augusto; Beatriz; Dinis; Enrika; Giovanna; Iara; João; Leandro; Leonor; Martim; Pedro; Rita e Vanessa.
+	Afonso; Agustin; Augusto; Beatriz; Dinis; Enrika; Giovanna; Iara; João; Leandro; Leonor; Mariana; Martim; Pedro; Rita e Vanessa.
 </p>
 <p>
 De que é feito o património da nossa cidade? Uma cidade são as suas pessoas, os seus edifícios,
