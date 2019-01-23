@@ -38,7 +38,7 @@ interactivo visual e sonoro. Assim todos podem desfrutar dos sons de Braga.
 		"sons/5_ParqueInfantil.mp3",
 		"sons/6_Corredor.mp3",
 		"sons/7_Cartao.mp3",
-		"sons/8_CafeChavenas.mp3",
+		"sons/8_CafeChavena.mp3",
 		"sons/9_Angelo.mp3",
 		"sons/10_Pavilhao.mp3"
 	]
