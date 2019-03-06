@@ -9,6 +9,10 @@ const MeuMiniMapaConfig = {
 <p>
 	Ângela; Beatriz; Carolina B.; Carolina B.; Constança; Damião; Dinis; Diogo; Gonçalo; Gustavo; Inês F.; Inês P.; Ivan; José; Leonor A.; Leonor S.; Margarida; Maria Miguel; Maria; Miguel; Pedro; Rodrigo A.; Rodrigo D.; Simão; Vasco e Viviana.
 </p>
+<b>Agradecimentos:</b>
+<p>
+	Ângelo e Conservatório Bofim.
+</p>
 <p>
 De que é feito o património da nossa cidade? Uma cidade são as suas pessoas, os seus edifícios,
 mas também os seus sons e as suas expressões. O meu mini mapa sonoro convida uma turma, um grupo
