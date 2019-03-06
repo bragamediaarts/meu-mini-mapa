@@ -11,7 +11,7 @@ const MeuMiniMapaConfig = {
 </p>
 <b>Agradecimentos:</b>
 <p>
-	Ângelo e Conservatório Bofim.
+	Ângelo (na guitarra) e Conservatório Bomfim.
 </p>
 <p>
 De que é feito o património da nossa cidade? Uma cidade são as suas pessoas, os seus edifícios,
