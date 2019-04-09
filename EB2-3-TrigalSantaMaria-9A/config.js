@@ -40,6 +40,6 @@ interactivo visual e sonoro. Assim todos podem desfrutar dos sons de Braga.
 		"sons/7_caes.mp3",
 		"sons/8_musica.mp3",
 		"sons/9_campainha.mp3",
-		"sons/10_charcoo.mp3"
+		"sons/10_charco.mp3"
 	]
 }
