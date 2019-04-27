@@ -2,6 +2,8 @@ const MeuMiniMapaConfig = {
 	mapa: "mapa.jpg",
 	nome: "Gnration Open Day",
 	titulo: "Gnration Open Day",
+	ano:2019
+	turma: Open Day,
 	creditos: `
 <b>Captações e Ilustrações:</b>
 <p>
