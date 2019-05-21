@@ -34,7 +34,7 @@ interactivo visual e sonoro. Assim todos podem desfrutar dos sons de Braga.
 		"sons/1_Bicicleta.mp3",
 		"sons/2_Banana.mp3",
 		"sons/3_Torneira.mp3",
-		"sons/4_Campanhia.mp3",
+		"sons/4_Campainha.mp3",
 		"sons/5_Flauta.mp3",
 		"sons/6_Corredor.mp3",
 		"sons/7_Estalinhos.mp3",
