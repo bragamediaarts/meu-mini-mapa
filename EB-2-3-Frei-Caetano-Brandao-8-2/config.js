@@ -18,7 +18,7 @@ gravação dos sons que o rodeiam e caracterizam. Esta experiência ficará disp
 interactivo visual e sonoro. Assim todos podem desfrutar dos sons de Braga.
 </p>
  <p>
-	Projeto Circuito - Serviço Educativo Braga Media Arts<br>
+	Projeto inserido no Circuito - Serviço Educativo Braga Media Arts<br>
 	Formadores: Artur Carvalho & Marta Pombeiro
 	Software: Nuno Hespanhol
 </p>
