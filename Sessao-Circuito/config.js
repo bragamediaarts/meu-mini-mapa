@@ -5,8 +5,7 @@ const MeuMiniMapaConfig = {
 	ano: "2020",
 	turma: "Wonder Team",
 	creditos: `
-<b>Wonder Team Captações, Ilustrações e Fotografias:</b>
-<p>(por ordem alfabética)
+<b>Wonder Team Captações, Ilustrações e Fotografias:</b>(por ordem alfabética)
 	Cláudia Leite; Daniel Pereira; Eduardo Rocha; Fernando Ferreira; Filipe Ferreira; Graça Guimarães; Hortense Santos; Joana Fernandes; João Andrade; João Dantas; Jonatas Pego; Lídia Dias; Lurdes Faria; Manuel Matos; Maria da Luz Miranda; Nuno Pera Fernandes; Paulo Brandão; Raquel Nair; Ricardo Rio; Tânia Crista; Teresa Gonçalves; Vítor Sá.
 <p>
 De que é feito o património da nossa cidade? Uma cidade são as suas pessoas, os seus edifícios,
