@@ -1,6 +1,6 @@
 const MeuMiniMapaConfig = {
 	mapa: "mapa.jpg",
-	nome: "Conferência Circuito Programação Janeiro-Julho 2020",
+	nome: "Apresentação Programa Janeiro-Julho 2020",
 	titulo: "Conferência Circuito",
 	ano: "2020",
 	turma: "Wonder Team",
