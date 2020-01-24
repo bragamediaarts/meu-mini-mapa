@@ -3,11 +3,11 @@ const MeuMiniMapaConfig = {
 	nome: "Escola Secundária Carlos Amarante",
 	titulo: "Escola Secundária Carlos Amarante",
 	ano: "7",
-	turma: "B",
+	turma: "B1",
 	creditos: `
 <b>Captações e Ilustrações:</b>
 <p>
-	Turma do 7º B.
+	Turma do 7º B1.
 <p>
 De que é feito o património da nossa cidade? Uma cidade são as suas pessoas, os seus edifícios,
 mas também os seus sons e as suas expressões. O meu mini mapa sonoro convida uma turma, um grupo
