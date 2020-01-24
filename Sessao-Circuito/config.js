@@ -5,9 +5,8 @@ const MeuMiniMapaConfig = {
 	ano: "2020",
 	turma: "Wonder Team",
 	creditos: `
-<b>Captações, Ilustrações e Fotografias:</b>
+<b>Wonder Team - Captações, Ilustrações e Fotografias:</b>
 <p>
-	Wonder Team:
 	(por ordem alfabética)
 	Cláudia Leite; Daniel Pereira; Eduardo Rocha; Fernando Ferreira; Filipe Ferreira; Graça Guimarães; Hortense Santos; Joana Fernandes; João Andrade; João Dantas; Jonatas Pego; Lídia Dias; Lurdes Faria; Manuel Matos; Maria da Luz Miranda; Nuno Pera Fernandes; Paulo Brandão; Raquel Nair; Ricardo Rio; Tânia Crista; Teresa Gonçalves; Vítor Sá.
 <p>
