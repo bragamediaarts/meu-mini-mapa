@@ -12,12 +12,12 @@ const MeuMiniMapaConfig = {
 	Cláudia Leite; Daniel Pereira; Eduardo Rocha; Fernando Ferreira; Filipe Ferreira; Graça Guimarães; Hortense Santos; Joana Fernandes; João Andrade; João Dantas; Jonatas Pego; Lídia Dias; Lurdes Faria; Manuel Matos; Maria da Luz Miranda; Nuno Pera Fernandes; Paulo Brandão; Raquel Nair; Ricardo Rio; Tânia Crista; Teresa Gonçalves; Vítor Sá.
 <p>
 De que é feito o património da nossa cidade? Uma cidade são as suas pessoas, os seus edifícios,
-mas também os seus sons e as suas expressões. O meu mini mapa sonoro convida uma turma, um grupo
+mas também os seus sons e as suas expressões. O Mini Mapa Sonoro convida uma turma, um grupo
 ou uma comunidade a fazer a sua própria viagem pelo património material e imaterial de Braga.
 Partindo de dez locais emblemáticos, a aventura passa por criar uma ilustração do seu próprio mapa e pela
 gravação dos sons que o rodeiam e caracterizam. Esta experiência ficará disponível online em forma de mapa
 interativo visual e sonoro. Assim todos podem desfrutar dos sons de Braga.
-No dia da apresentação da Programação Semestral do Circuito - Serviço Educativo Braga Media Arts, propôs-se uma experiência diferente dentro do espaço do Gnration. As equipas participantes foram desafiadas a criar um percurso sonoro, fotográfico e ilustrado, deste espaço da cidade.
+Na apresentação do programa jan-jul 2020 do Circuito - Serviço Educativo Braga Media Arts, este grupo especial partiu do gnration para criar um percurso sonoro, fotográfico e ilustrado, deste espaço da cidade.
 </p>
  <p>
 	Projeto Circuito - Serviço Educativo Braga Media Artes<br>
