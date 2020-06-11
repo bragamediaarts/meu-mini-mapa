@@ -1,7 +1,7 @@
 const MeuMiniMapaConfig = {
 	mapa: "mapa.jpg",
 	nome: "Escola Secundária de Maximinos",
-	titulo: "Grupo de alunos cegos e com baixa visão",
+	titulo: "Grupo de alunos cegos e com baixa visão da Escola Sexundária de Maximinos",
 	ano: "2020",
 	turma: "Junho",
 	creditos: `
