@@ -26,15 +26,15 @@ Durante o período de confinamento o Mini Mapa Sonoro acompanhou os alunos dos 2
 `
 	,
 	sons: [
-		"sons/1_porta.mp3",
-		"sons/2_campainha.mp3",
-		"sons/3_leitura.mp3",
-		"sons/4_pintura.mp3",
-		"sons/5_aspirador.mp3",
-		"sons/6_bebe.mp3",
-		"sons/7_despertador.mp3",
-		"sons/8_rua.mp3",
-		"sons/9_persiana.mp3",
-		""
+		"sons/1_aspiradores.mp3",
+		"sons/2_cozinha.mp3",
+		"sons/3_passaros.mp3",
+		"sons/4_alucamp.mp3",
+		"sons/5_maquinas.mp3",
+		"sons/6_varios1.mp3",
+		"sons/7_teclado.mp3",
+		"sons/8_desuajax.mp3",
+		"sons/9_wc.mp3",
+		"sons/10_varios2.mp3"
 	]
 }
