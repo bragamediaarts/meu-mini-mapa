@@ -26,15 +26,15 @@ Neste mapa encontrarás sons e imagens, mas também sensações, cheiros, cores 
 `
 	,
 	sons: [
-		"sons/1_agua",
+		"sons/1_agua.pm3",
 		"",
-		"sons/3_casa",
+		"sons/3_casa.mp3",
 		"",
 		"sons/5_animais.mp3",
 		"sons/6_matrecos.mp3",
-		"sons/7_bater",
-		"sons/8_rua",
-		"sons/9_elevador",
-		"sons/10_cadeira"
+		"sons/7_bater.mp3",
+		"sons/8_rua.mp3",
+		"sons/9_elevador.mp3",
+		"sons/10_cadeira.mp3"
 	]
 }
