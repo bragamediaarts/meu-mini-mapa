@@ -26,7 +26,7 @@ Neste mapa encontrarás sons e imagens, mas também sensações, cheiros, cores 
 `
 	,
 	sons: [
-		"sons/1_agua.pm3",
+		"sons/1_agua.mp3",
 		"",
 		"sons/3_casa.mp3",
 		"",
