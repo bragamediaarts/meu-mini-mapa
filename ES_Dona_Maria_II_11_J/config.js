@@ -27,7 +27,7 @@ Neste mapa encontrarás sons e imagens, mas também sensações, cheiros, cores 
 	,
 	sons: [
 		"sons/1_passaros.mp3",
-		""
+		"",
 		"sons/3_rua.mp3",
 		"",
 		"sons/5_dietas.mp3",
