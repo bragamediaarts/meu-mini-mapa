@@ -34,7 +34,7 @@ Neste mapa encontrarás sons, imagens, sensações e memórias. Assim propomos-t
 		"sons/6_telefoneC.mp3",
 		"sons/7_motasC.mp3",
 		"sons/8_bandaC.mp3",
-		"",
+		"sons/9_mensagemC.mp3",
 		"sons/10_djdancerC.mp3"
 	]
 }
