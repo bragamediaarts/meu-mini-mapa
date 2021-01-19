@@ -9,7 +9,7 @@ const MeuMiniMapaConfig = {
 <p>
 	Grupo do Centro de Dia da Fundação Bomfim.
 <p>
-Este Mini Mapa Sonoro é resultado do trabalho colaborativo feito com um grupo de utentes do Centro de Dia da Fundação Bomfim. No início do ano fomos conhecer as suas rotinas e atividades lúdicas. Ouvimos canções e rimas antigas cantadas pela Maria Luísa, conversámos sobre o que faziam antes da pandemia chegar. Tivemos a honra de ouvir o Sr. António a tocar bateria com pratos e talheres. Fingimos que jogávamos ao dominó. Escutámos as crianças a brincar no recreio, fizemos zapping na televisão e à saída, gravámos o trãnsito na estrada.
+Este Mini Mapa Sonoro é resultado do trabalho colaborativo feito com um grupo de utentes do Centro de Dia da Fundação Bomfim. No início do ano fomos conhecer as suas rotinas e atividades lúdicas. Ouvimos canções e rimas antigas cantadas pela Maria Luísa, conversámos sobre o que faziam antes da pandemia chegar. Tivemos a honra de ouvir o Sr. António a tocar bateria com pratos e talheres. Fingimos que jogávamos ao dominó. Escutámos as crianças a brincar no recreio, fizemos zapping na televisão e à saída, gravámos o trânsito na estrada.
 <p>
 Neste mapa encontrarás sons, imagens, sensações e memórias. Assim propomos-te uma visita guiada alternativa, feita por quem habita a cidade.
 Clica nos círculos a tracejado e escuta o que se gravou.
