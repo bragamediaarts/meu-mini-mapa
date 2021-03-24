@@ -9,7 +9,7 @@ const MeuMiniMapaConfig = {
 <p>
 	Turma do 9ºB.
 <p>
-Este Mini Mapa Sonoro é resultado do trabalho colaborativo do 9ºC, feito em formato online e com o objetivo de dar a conhecer as suas experiências, perspetivas e memórias da cidade.</p>
+Este Mini Mapa Sonoro é resultado do trabalho colaborativo do 9ºB, feito em formato online e com o objetivo de dar a conhecer as suas experiências, perspetivas e memórias da cidade.</p>
 <p>
 Agora que estamos em contexto pandémico, neste mapa encontrarás sons e imagens, mas também sensações sobre o uso dos média durante a pandemia. Assim propomos-te uma viagem diferente por Braga e pelas tecnologias que tanto nos trouxeram de bom, ao diminuir a distância entre quem gostamos, como também nos provocaram ansiedade, dependência, saturação e outras dificuldades.</p> 
 <p>Para navegares neste mapa, clica nas legendas e deixa-te guiar pelos sons da Pandemedia.
