@@ -30,7 +30,7 @@ Liga o som do teu dispositivo e clica sobre os círculos a tracejado, para poder
 	,
 	sons: [
 		"sons/1_secadores.mp3",
-		"",
+		"sons/2_barba.mp3",
 		"sons/3_pianos.mp3",
 		"",
 		"sons/5_cozinha.mp3",
