@@ -13,7 +13,7 @@ Este Mini Mapa Sonoro é resultado do trabalho colaborativo do 6ºE, feito com o
 <p>
 Neste mapa encontrarás sons e imagens, mas também sensações, cheiros, cores e sabores. Assim propomos-te uma viagem diferente por Braga.</p>
 <p>
-Liga o som do teu dispositivo e clica sobre os círculos a tracejado para poderes desfrutar desta experiência.
+Liga o som do teu dispositivo e clica sobre os círculos a tracejado, para poderes desfrutar desta experiência.
 </p>
  <p>
 	Projeto Circuito - Serviço Educativo Braga Media Artes<br>
